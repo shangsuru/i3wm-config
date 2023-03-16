@@ -107,9 +107,9 @@ bindsym $mod+a focus parent
 # We use variables to avoid repeating the names in multiple places.
 # Copy the icons from "FontAwesome Cheatsheet v4"
 set $ws1 "1: " 
-set $ws2 "2: "
-set $ws3 "3: "
-set $ws4 "4: "
+set $ws2 "2: " 
+set $ws3 "3: " 
+set $ws4 "4: " 
 set $ws5 "5"
 set $ws6 "6"
 set $ws7 "7"
@@ -203,7 +203,7 @@ exec --no-startup-id i3-msg 'exec qterminal; exec google-chrome'
 
 # Find out window class by running "xprop" in the terminal, then click on the window of the app
 for_window [class="Bitwarden"] move container to workspace $ws3
-exec --no-startup-id '/home/henry/Documents/AppImages/Bitwarden-2022.10.1-x86_64.AppImage'
+exec --no-startup-id '/home/henry/Documents/AppImages/Bitwarden-2023.2.0-x86_64.AppImage'
 
 for_window [class="Zotero"] move container to workspace $ws2
 exec --no-startup-id i3-msg 'exec zotero'
@@ -215,7 +215,14 @@ exec --no-startup-id i3-msg 'exec zotero'
 exec_always feh --bg-scale /usr/share/wallpapers/mountain.jpg
 
 # Monitor Setup
-exec_always xrandr --output eDP-1 --off --output DP-1 --mode 3440x1440 --pos 0x0 --rotate normal --output HDMI-1 --off --output DP-2 --off --output DP-3 --off --output DP-4 --off
+# one big monitor
+# exec_always xrandr --output eDP-1 --off --output DP-1 --mode 3440x1440 --pos 0x0 --rotate normal --output HDMI-1 --off --output DP-2 --off --output DP-3 --off --output DP-4 --off
+
+# dual monitor setup
+exec_always xrandr --output eDP-1 --auto --right-of DP-1 --output DP-1 --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI-1 --off --output DP-2 --off --output DP-3 --off --output DP-4 --off
+# move focused workspace between monitors
+bindsym $mod+Ctrl+greater move workspace to output right
+bindsym $mod+Ctrl+less move workspace to output left
 
 # Screenshots
 bindsym $mod+Shift+s exec --no-startup-id flameshot gui
